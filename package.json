@@ -1,23 +1,24 @@
 {
   "name": "nodejs-rest-api",
   "version": "1.0.0",
-  "description": "REST API Intro",
-  "main": "index.js",
+  "description": "Getting Started with REST API",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "save": "nodemon app.js"
+    "start": "nodemon app.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/nikhil-shrestha/rest-api-basics.git"
   },
-  "author": "Nikhil",
+  "author": "Nikhil Shrestha",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/nikhil-shrestha/rest-api-basics/issues"
   },
   "homepage": "https://github.com/nikhil-shrestha/rest-api-basics#readme",
   "dependencies": {
+    "body-parser": "^1.18.3",
     "express": "^4.16.4",
     "nodemon": "^1.18.10"
   }
