@@ -169,13 +169,15 @@ exports.deletePost = (req, res, next) => {
         throw error;
       }
       clearImage(post.imageUrl);
+
       return Post.findByIdAndRemove(postId);
     })
     .then(result => {
+      console.log("user found!!");
       return User.findById(req.userId);
     })
     .then(user => {
-      user.post.pull(postId);
+      user.posts.pull(postId);
       return user.save();
     })
     .then(result => {
