@@ -31,7 +31,8 @@ const fileFilter = (req, file, cb) => {
   }
 };
 
-app.use(bodyParser.json()); //application/json
+// app.use(bodyParser.urlencoded()); // x-www-form-urlencoded <form>
+app.use(bodyParser.json()); // application/json
 app.use(
   multer({ storage: fileStorage, fileFilter: fileFilter }).single("image")
 );
@@ -41,7 +42,7 @@ app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(
     "Access-Control-Allow-Methods",
-    "GET, POST, PUT, PATCH, DELETE"
+    "OPTIONS, GET, POST, PUT, PATCH, DELETE"
   );
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
   next();
@@ -54,7 +55,8 @@ app.use((error, req, res, next) => {
   console.log(error);
   const status = error.statusCode || 500;
   const message = error.message;
-  res.status(status).json({ message: message });
+  const data = error.data;
+  res.status(status).json({ message: message, data: data });
 });
 
 mongoose
@@ -62,6 +64,10 @@ mongoose
     "mongodb+srv://illusionist17:heaven-hunter17@cluster0-pdf2z.mongodb.net/messages?retryWrites=true"
   )
   .then(result => {
-    app.listen(8080);
+    const server = app.listen(8080);
+    const io = require("./socket").init(server);
+    io.on("connection", socket => {
+      console.log("Client connected");
+    });
   })
   .catch(err => console.log(err));
