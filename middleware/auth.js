@@ -15,7 +15,6 @@ module.exports = (req, res, next) => {
     return next();
   }
   if (!decodedToken) {
-    const error = new Error("Not authenticated.");
     req.isAuth = false;
     return next();
   }
